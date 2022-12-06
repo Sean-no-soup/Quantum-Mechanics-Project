@@ -171,7 +171,7 @@ if __name__ == "__main__":
         ax=axenergy,
         label='energy',
         valmin=0,
-        valmax=10,
+        valmax=2,
         valinit=energy,
         color = 'yellow',
     )
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     axaugment = fig.add_axes([0.82, 0.2, 0.03, 0.7])
     augment_slider = Slider(
         ax=axaugment,
-        label="psi(x0+dx)",
+        label="psi(i=1)",
         valmin=-1,
         valmax=1,
         valinit=augment,
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     axpsi0 = fig.add_axes([0.87, 0.2, 0.03, 0.7])
     psi0_slider = Slider(
         ax=axpsi0,
-        label="psi0",
+        label="psi(i=0)",
         valmin=-1,
         valmax=1,
         valinit=W0[0],
@@ -216,7 +216,7 @@ if __name__ == "__main__":
     axdpsi0 = fig.add_axes([0.92, 0.2, 0.03, 0.7])
     dpsi0_slider = Slider(
         ax=axdpsi0,
-        label="dpsi0",
+        label="dpsi(i=0)",
         valmin=-1,
         valmax=1,
         valinit=W0[1],
@@ -253,13 +253,17 @@ if __name__ == "__main__":
     psi0_slider.on_changed(update)
     dpsi0_slider.on_changed(update)
 
+    """
 
+    #manually search for energy levels (psi -> 0 as x-> +- infinity) energy, set min/max energy values of slider
+    def set_energy_max(event):
+    def set_energy_min(event):
 
+    
+    axlimit = fig.add_axes([0.7,0.12,0.1,0.03])
+    button = Button(axlimit, "toggle axis_limit", hovercolor = '0.975', color = "green")
+    button.on_clicked(toggle_axis_limit)
+    """
 
-
-
-
-
-   
     plt.show()
     
