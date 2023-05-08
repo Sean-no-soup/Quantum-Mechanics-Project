@@ -1,9 +1,8 @@
 #Sean Heffley 5/8/23
-#generate all Clebsch–Gordan coefficients for a given j1 and j2
 from sympy.physics.quantum.cg import CG
 from sympy import S,factorial,sqrt
 import numpy as np
-#S used to create number objects which can be fractions
+#S used to create number objects which can be fractions 
 #   rather than exclusively integers or floats:these are easier to read
 #
 #either the following function or sympy's included function, CG, may be used: check lines 82-83 with all the ##############s-----------------------------------
@@ -23,7 +22,7 @@ def calculateCoefficient(j1, m1, j2, m2, j3, m3):
         factorial(j2+m2)
 
     denominator = factorial(j1+j2+j3+1)
-   
+    
     summation = 0
     for k in range(0, j3 + m3 + 2):
         try:
@@ -36,9 +35,8 @@ def calculateCoefficient(j1, m1, j2, m2, j3, m3):
                 factorial(j3-j1-m2+k)))
             summation += temp
 
-
         except:pass #factorials of negatives return an error (souldn't be counted so this is an easy way to exclude them)
-         
+          
     return delta * sqrt(numerator/denominator) * summation
 
 #choose j1 and j2----------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +83,7 @@ while j3 >= j1 - j2: #min J: convention j1 > j2 required
 
                 #print('\u27E8{} {} {} {} \u007c {} {}\u27E9'.format(j1, m1, j2, m2, j3, m3),end=' = ')#print what's going on, debug stuff
                 #print(coefficient)
-               
+                
                 if str(coefficient)[0] == "-": #formatting things to look nicer
                     coefficient =   "-sqrt({})".format(str(coefficient**2))
                 else: coefficient = " sqrt({})".format(str(coefficient**2))
@@ -102,7 +100,7 @@ def sortCoef(n,sortlist):
         index = ['j1','m1','j2','m2','J','M'].index(n)
         return(sorted(sortlist,key = lambda x:x[index]))
 
-sorted_list = sortCoef('m1',coefficients) #should start on the same m1(and pared m2) value for each chart
+sorted_list = sortCoef('m1',coefficients) #should start on the same m1(and pared m2) value for each chart 
 sorted_list = sortCoef('J',sorted_list)   #and follow a column of J
 sorted_list = sortCoef('M',sorted_list)   #in groups of M. all compared to the wikipedia chart
 
@@ -111,25 +109,15 @@ for i in sorted_list:
     for j in [0,1,2,3,4,5]:
         if len(str(i[j])) > maxlen[j]:
             maxlen[j] = len(str(i[j]))
-            
-running = 0
+
+running = 0 
 for j in sorted_list: #go through list of cgcs-----------------------------------------------------------------------------------------------------------------
     if running != j[5]:
         running = j[5]
         print('\n--  M={}  --'.format(running))#separate groups of different M
 
-    #why is formatting so pain, this is disgusting code: print formatted <j1 m1 j2 m2 |j3 m3> = cgc with EVEN SPACINGS between each
+    #why is formatting so pain, this is disgusting code: print formatted <j1 m1 j2 m2 |j3 m3> = cgc EVEN SPACINGS between each
     print("\u27E8{0:>{6}s} {1:>{7}s} {2:>{8}s} {3:>{9}s} \u007c {4:>{10}s} {5:>{11}s}\u27E9 = {12}\
           ".format(str(j[0]), str(j[1]), str(j[2]), str(j[3]), str(j[4]), str(j[5]),\
                    maxlen[0], maxlen[1], maxlen[2], maxlen[3], maxlen[4], maxlen[5],\
                     j[6]))
-
-
-
-
-
-
-
-
-
-
